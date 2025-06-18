@@ -1,0 +1,52 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Snake Game</title>
+  <style>
+    nav {
+      background: #222;
+      padding: 25px;
+      width: 100%;
+      text-align: center;
+      font-size: 38px;
+    }
+    nav a, nav button {
+      color: #0f0;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 26px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    nav a:hover, nav button:hover {
+      color: #fff;
+    }
+    nav span {
+      color: #eee;
+      margin: 0 15px;
+    }
+    nav form {
+      display: inline;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    {% if user.is_authenticated %}
+      <span>Welcome, {{ user.username }}!</span>
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+      </form>
+    {% else %}
+      <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'register' %}">Register</a>
+    {% endif %}
+  </nav>
+  {% block content %}
+  {% endblock %}
+</body>
+</html>
